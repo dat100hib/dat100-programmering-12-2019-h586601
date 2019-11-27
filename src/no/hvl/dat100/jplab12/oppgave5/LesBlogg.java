@@ -24,7 +24,49 @@ public class LesBlogg {
 
 	public static Blogg les(String filnavn) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		int id;
+		String navn;
+		String dato;
+		String tekst;
+		String url;
+		
+		Blogg innleggTab = new Blogg();
+		
+		try {	
+		Scanner leser = new Scanner(filnavn);
+		
+		int antInnlegg = Integer.parseInt(leser.nextLine());
+		innleggTab = new Blogg(antInnlegg);
+		
+		for (int pos = 0; pos < antInnlegg; pos++) {
+			if (leser.nextLine().contains(TEKST)) {
+				id = leser.nextInt();
+				navn = leser.nextLine();
+				dato = leser.nextLine();
+				tekst = leser.nextLine();
+				
+				Tekst txtInnlegg = new Tekst(id, navn, dato, tekst);
+				innleggTab.leggTil(txtInnlegg);
+				
+			} if (leser.nextLine().contains(BILDE)) {
+				id = leser.nextInt();
+				navn = leser.nextLine();
+				dato = leser.nextLine();
+				tekst = leser.nextLine();
+				url = leser.nextLine();
+				
+				Bilde urlInnlegg = new Bilde(id, navn, dato, tekst, url);
+				innleggTab.leggTil(urlInnlegg);
+			}
+			
+		}
+		
+		
+		} catch (NumberFormatException e) {
+			System.out.println("Ugyldig tallverdi");
+		}
+		return innleggTab;
+		}
 
-	}
 }
+
